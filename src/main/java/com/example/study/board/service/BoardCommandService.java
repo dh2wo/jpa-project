@@ -9,5 +9,5 @@ public interface BoardCommandService {
 
     BoardDeleteResponseDto delete(Integer boardNum);
 
-    BoardUpdateResponseDto update(Integer boardNum, BoardUpdateRequestDto dto);
+    BoardUpdateResponseDto update(Integer boardNum, BoardUpdateRequestDto dto, HttpServletRequest request);
 }

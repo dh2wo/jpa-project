@@ -26,9 +26,9 @@ public class DefaultBoardCommandService implements BoardCommandService {
 
     @Override
     public BoardAddResponseDto add(BoardAddRequsetDto dto, HttpServletRequest request) {
+
         JwtPayloadParser payloadParser = jwtPayloadParserBuilder.buildWith(request);
         String email = payloadParser.subject();
-        String nickname = payloadParser.claims().get("nickname", String.class);
 
         // 유저 아이디
         UUID memberId = memberRepository.findIdByEmail(email)
@@ -50,6 +50,7 @@ public class DefaultBoardCommandService implements BoardCommandService {
 
     @Transactional
     public BoardDeleteResponseDto delete(Integer boardNum) {
+
         boolean success = boardRepository.existsByBoardNum(boardNum);
 
         if (success) {
@@ -62,15 +63,29 @@ public class DefaultBoardCommandService implements BoardCommandService {
                 .build();
     }
 
+
     @Override
     @Transactional
-    public BoardUpdateResponseDto update(Integer boardNum, BoardUpdateRequestDto dto) {
+    public BoardUpdateResponseDto update(Integer boardNum, BoardUpdateRequestDto dto, HttpServletRequest request) {
+
+        JwtPayloadParser payloadParser = jwtPayloadParserBuilder.buildWith(request);
+        String email = payloadParser.subject();
+
+        // 유저 아이디
+        UUID memberId = memberRepository.findIdByEmail(email)
+                .orElseThrow(IllegalStateException::new)
+                .id();
+
         boolean success = boardRepository.existsByBoardNum(boardNum);
 
         if(success){
             Board board = boardRepository.findByBoardNum(boardNum);
-            board.setTitle(dto.title());
-            board.setContent(dto.content());
+            if(board.memberId.equals(memberId)){
+                board.setTitle(dto.title());
+                board.setContent(dto.content());
+            } else {
+                success = false;
+            }
         }
 
         return BoardUpdateResponseDto.builder()

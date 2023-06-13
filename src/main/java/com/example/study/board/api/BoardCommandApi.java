@@ -1,5 +1,6 @@
 package com.example.study.board.api;
 
+import com.example.study.board.api.dto.BoardCommandDto;
 import com.example.study.board.api.dto.BoardCommandDto.*;
 import com.example.study.board.domain.Board;
 import com.example.study.board.service.BoardCommandService;
@@ -27,7 +28,7 @@ public class BoardCommandApi {
     }
 
     @PostMapping("/update/{id}")
-    public BoardUpdateResponseDto update(@PathVariable("id") Integer boardNum, @RequestBody BoardUpdateRequestDto dto){
-        return boardCommandService.update(boardNum, dto);
+    public BoardUpdateResponseDto update(@PathVariable("id") Integer boardNum, @RequestBody BoardUpdateRequestDto dto, HttpServletRequest request){
+        return boardCommandService.update(boardNum, dto, request);
     }
 }

@@ -5,6 +5,7 @@ import com.example.study.board.repository.projection.BoardListProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
@@ -21,4 +22,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     int deleteByBoardNum(Integer boardNum);
 
     Board findByBoardNum(Integer boardNum);
+
 }

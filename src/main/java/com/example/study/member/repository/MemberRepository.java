@@ -4,6 +4,7 @@ import com.example.study.member.domain.Member;
 import com.example.study.member.repository.projection.MemberEmailNicknameProjection;
 import com.example.study.member.repository.projection.MemberQueryProjection.MemberIdProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -27,9 +28,10 @@ public interface MemberRepository extends JpaRepository<Member, UUID> {
 	// deleteBy...
 	
 	// ===
-	
+
 	// Use Projection
 	MemberEmailNicknameProjection findEmailAndNicknameByEmail(String email); // TODO test
 	
 	Optional<MemberIdProjection> findIdByEmail(String email);
+
 }

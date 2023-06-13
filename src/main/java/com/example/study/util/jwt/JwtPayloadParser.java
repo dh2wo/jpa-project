@@ -26,4 +26,5 @@ public final class JwtPayloadParser {
 		token = token.substring(7);
 		return jwtParser.parseClaimsJws(token).getBody();
 	}
+
 }

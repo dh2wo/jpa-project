@@ -21,9 +21,10 @@ import static com.example.study.support.Constants.DEFAULT_TIMEZONE_ID;
         schema = MySchemaConstants.SCHEMA)
 public class Board extends UuidBaseEntity {
     public UUID memberId;
+    @Column(insertable = false, updatable = false)
     public Integer boardNum;
-    public String boardTitle;
-    public String boardContent;
+    public String title;
+    public String content;
     @Builder.Default
     public OffsetDateTime createAt = OffsetDateTime.now(DEFAULT_TIMEZONE_ID);
 }

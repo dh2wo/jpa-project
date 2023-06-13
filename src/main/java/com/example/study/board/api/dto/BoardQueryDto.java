@@ -1,6 +1,6 @@
 package com.example.study.board.api.dto;
 
-public record BaordQueryDto() {
-
+public record BoardQueryDto() {
     // READ만
+
 }

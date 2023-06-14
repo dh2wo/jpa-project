@@ -17,5 +17,5 @@ public interface BoardQueryServcie {
 
     List<BoardListProjection> findByMemberId(HttpServletRequest request);
 
-    BoardQueryResponseDto findBoardList(Pageable pageable, String keyword, SearchType searchType);
+    BoardQueryResponseDto findBoardList(Pageable pageable, String keyword, SearchType searchType, String page);
 }

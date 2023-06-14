@@ -11,6 +11,7 @@ import com.example.study.util.jwt.JwtPayloadParser;
 import com.example.study.util.jwt.JwtPayloadParserBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -57,12 +58,16 @@ public class DefaultBoardQueryService implements BoardQueryServcie {
     }
 
     @Override
-    public BoardQueryResponseDto findBoardList(Pageable pageable, String keyword, SearchType searchType) {
+    public BoardQueryResponseDto findBoardList(Pageable pageable, String keyword, SearchType searchType, String page) {
 
         Page<Board> boardSearchResult = null;
 
+        if (page != null && !page.isEmpty()) {
+            pageable = PageRequest.of(Integer.parseInt(page) - 1, pageable.getPageSize(), pageable.getSort());
+        }
+
         switch (searchType){
-            case TITLE ->
+            case TITLE ->                               // Contains: 포함, IgnoreCase: 대소문자 구별X
                     boardSearchResult = boardRepository.findAllByTitleContainsIgnoreCase(keyword, pageable);
             case CONTENT ->
                     boardSearchResult = boardRepository.findAllByContentContainsIgnoreCase(keyword, pageable);
@@ -73,7 +78,6 @@ public class DefaultBoardQueryService implements BoardQueryServcie {
             case NONE ->
                     boardSearchResult = boardRepository.findAll(pageable);
         }
-
         pageable = pageable.previousOrFirst();
 
         List<Board> boards = boardSearchResult.toList();

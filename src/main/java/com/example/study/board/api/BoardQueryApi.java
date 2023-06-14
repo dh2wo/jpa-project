@@ -5,6 +5,7 @@ import com.example.study.board.repository.projection.BoardListProjection;
 import com.example.study.board.service.BoardQueryServcie;
 import com.example.study.board.type.SearchType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -31,8 +32,10 @@ public class BoardQueryApi {
     public BoardQueryResponseDto findBoardList(
             @PageableDefault(size=10, sort="boardNum", direction = Sort.Direction.DESC) Pageable pageable,
             @RequestParam(required = false) String keyword,
-            @RequestParam(required = false, defaultValue = "NONE") SearchType searchType){
-        return boardQueryServcie.findBoardList(pageable, keyword, searchType);
+            @RequestParam(required = false, defaultValue = "NONE") SearchType searchType,
+            @RequestParam(required = false) String page) {
+
+        return boardQueryServcie.findBoardList(pageable, keyword, searchType, page);
     }
 
 //    @GetMapping("/{boardNum}")
@@ -41,6 +44,7 @@ public class BoardQueryApi {
 //    }
     // todo 다양한 필드로 조회해보기
     // todo 다양한 조회 합치기
+
     @GetMapping("/{boardNum}")
     public List<BoardListProjection> findByBoardNum(@PathVariable Long boardNum){
         return boardQueryServcie.findByBoardNum(boardNum);

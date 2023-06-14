@@ -2,29 +2,28 @@ package com.example.study.board.api.dto;
 
 import lombok.Builder;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.validation.constraints.NotBlank;
-import java.util.UUID;
-
 public record BoardCommandDto() {
 
     // CREATE, UPDATE, DELETE; READ(X)
-    public record BoardAddRequsetDto(
+
+    // 게시글 추가 dto
+    public record BoardCreateRequsetDto(
             String title,
             String content
     ){}
 
     @Builder
-    public record BoardAddResponseDto(
+    public record BoardCreateResponseDto(
             boolean success
     ){}
 
+    // 게시글 삭제 dto
     @Builder
     public record BoardDeleteResponseDto(
             boolean success
     ){}
 
+    // 게시글 수정 dto
     public record BoardUpdateRequestDto(
             String title,
             String content

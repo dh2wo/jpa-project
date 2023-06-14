@@ -5,9 +5,12 @@ CREATE SEQUENCE IF NOT EXISTS board_sequence START 1;
 CREATE TABLE IF NOT EXISTS joara_basic.board (
     id                  UUID                 PRIMARY KEY,
     member_id           UUID                 ,
+    nickname           VARCHAR(255)         ,
     board_num           SERIAL               ,
     title               VARCHAR(255)         ,
     content             TEXT                 ,
-    create_at           DATE
+    created_at          DATE                 ,
+    updated_at          DATE                 ,
+    deleted_at          DATE
 );
 ALTER TABLE joara_basic.board ALTER COLUMN board_num SET DEFAULT nextval('board_sequence');

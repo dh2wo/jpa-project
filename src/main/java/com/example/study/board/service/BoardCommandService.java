@@ -5,7 +5,7 @@ import com.example.study.board.api.dto.BoardCommandDto.*;
 import javax.servlet.http.HttpServletRequest;
 
 public interface BoardCommandService {
-    BoardAddResponseDto add(BoardAddRequsetDto dto, HttpServletRequest request);
+    BoardCreateResponseDto create(BoardCreateRequsetDto dto, HttpServletRequest request);
 
     BoardDeleteResponseDto delete(Integer boardNum);
 

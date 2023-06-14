@@ -1,16 +1,29 @@
 package com.example.study.board.service;
 
+import com.example.study.board.api.dto.BoardQueryDto.BoardQueryResponseDto;
+import com.example.study.board.domain.Board;
+import com.example.study.board.exception.BoardFailureErrorCode;
 import com.example.study.board.repository.BoardRepository;
 import com.example.study.board.repository.projection.BoardListProjection;
+import com.example.study.board.type.SearchType;
+import com.example.study.member.repository.MemberRepository;
+import com.example.study.util.jwt.JwtPayloadParser;
+import com.example.study.util.jwt.JwtPayloadParserBuilder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class DefaultBoardQueryService implements BoardQueryServcie {
 
+    private final JwtPayloadParserBuilder jwtPayloadParserBuilder;
+    private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
 
 //    @Override
@@ -18,8 +31,61 @@ public class DefaultBoardQueryService implements BoardQueryServcie {
 //        return boardRepository.findAll();
 //    }
 
+//    @Override
+//    public List<BoardListProjection> readList() {
+//        // Projection으로 원하는 컬럼만 가져올 경우 JpaRepository에서 findAllProjectedBy() 함수를 사용
+//        return boardRepository.findProjectedBy();
+//    }
+
     @Override
-    public List<BoardListProjection> all() {
-        return boardRepository.findAllProjectedBy();
+    public List<BoardListProjection> findByBoardNum(Long boardNum) {
+        return null;
+    }
+
+    @Override
+    public List<BoardListProjection> findByMemberId(HttpServletRequest request) {
+
+        JwtPayloadParser payloadParser = jwtPayloadParserBuilder.buildWith(request);
+        String email = payloadParser.subject();
+
+        // 유저 아이디
+        UUID memberId = memberRepository.findIdByEmail(email)
+                .orElseThrow(IllegalStateException::new)
+                .id();
+
+        return boardRepository.findProjectedByMemberId(memberId);
+    }
+
+    @Override
+    public BoardQueryResponseDto findBoardList(Pageable pageable, String keyword, SearchType searchType) {
+
+        Page<Board> boardSearchResult = null;
+
+        switch (searchType){
+            case TITLE ->
+                    boardSearchResult = boardRepository.findAllByTitleContainsIgnoreCase(keyword, pageable);
+            case CONTENT ->
+                    boardSearchResult = boardRepository.findAllByContentContainsIgnoreCase(keyword, pageable);
+            case MEMBER_NAME ->
+                    boardSearchResult = boardRepository.findAllByNicknameContainsIgnoreCase(keyword, pageable);
+            case BOARD_NUM ->
+                    boardSearchResult = boardRepository.findAllByBoardNum(Long.parseLong(keyword), pageable);
+            case NONE ->
+                    boardSearchResult = boardRepository.findAll(pageable);
+        }
+
+        pageable = pageable.previousOrFirst();
+
+        List<Board> boards = boardSearchResult.toList();
+        long lastPageNumber = boardSearchResult.getTotalPages();
+
+        if (pageable.getPageNumber() >= lastPageNumber) {
+            throw BoardFailureErrorCode.PAGE_OUT_OF_RANGE.defaultException();
+        }
+
+        return BoardQueryResponseDto.builder()
+                .boardList(boards)
+                .lastPage(lastPageNumber)
+                .build();
     }
 }

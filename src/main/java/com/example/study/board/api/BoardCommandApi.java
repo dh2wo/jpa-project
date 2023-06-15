@@ -6,18 +6,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("board")
+@RequestMapping("/board")
 public class BoardCommandApi {
 
     private final BoardCommandService boardCommandService;
 
     // 게시글 등록
-    @PostMapping("")
+    @PostMapping()
     public BoardCreateResponseDto create(
-            BoardCreateRequsetDto dto, HttpServletRequest request){ // request: member_id 가져오려고
+            @RequestBody @Valid BoardCreateRequsetDto dto,
+            HttpServletRequest request){ // request: member_id 가져오려고
         return boardCommandService.create(dto, request);
     }
 
@@ -33,7 +35,7 @@ public class BoardCommandApi {
 //        boolean success = boardCommandService.update(boardNum, dto, request).success();
 //        return BoardUpdateResponseDto.builder()
 //                .success(success)
-//                .build();\
+//                .build();
         return boardCommandService.update(boardNum, dto, request);
     }
 }

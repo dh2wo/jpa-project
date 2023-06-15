@@ -63,6 +63,7 @@ public class DefaultBoardQueryService implements BoardQueryServcie {
         Page<Board> boardSearchResult = null;
 
         if (page != null && !page.isEmpty()) {
+            // 만약 'page' 매개변수가 제공되었다면, pageable 객체를 해당 페이지로 업데이트
             pageable = PageRequest.of(Integer.parseInt(page) - 1, pageable.getPageSize(), pageable.getSort());
         }
 
@@ -78,12 +79,14 @@ public class DefaultBoardQueryService implements BoardQueryServcie {
             case NONE ->
                     boardSearchResult = boardRepository.findAll(pageable);
         }
+        // pageable 객체를 이전 페이지 또는 첫 번째 페이지로 업데이트
         pageable = pageable.previousOrFirst();
 
         List<Board> boards = boardSearchResult.toList();
         long lastPageNumber = boardSearchResult.getTotalPages();
 
         if (pageable.getPageNumber() >= lastPageNumber) {
+            // 요청한 페이지가 범위를 벗어나면 예외
             throw BoardFailureErrorCode.PAGE_OUT_OF_RANGE.defaultException();
         }
 

@@ -11,11 +11,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface BookRepository extends JpaRepository<Book, UUID> {
-	Page<BookListProjection> findAllByGenreId(UUID genreId, Pageable pageable);
-	Page<BookListProjection> findAllByGenreIdAndTitleContainsIgnoreCase(UUID genreId, String keyword, Pageable pageable);
-	Page<BookListProjection> findAllByGenreIdAndDescriptionContainsIgnoreCase(UUID genreId, String keyword, Pageable pageable);
-	Page<BookListProjection> findAllByGenreIdAndMemberNicknameContainsIgnoreCase(UUID genreId, String keyword, Pageable pageable);
-	Long countByGenreId(UUID genreId);
+	Page<BookListProjection> findAllByGenreId(Long genreId, Pageable pageable);
+	Page<BookListProjection> findAllByGenreIdAndTitleContainsIgnoreCase(Long genreId, String keyword, Pageable pageable);
+	Page<BookListProjection> findAllByGenreIdAndDescriptionContainsIgnoreCase(Long genreId, String keyword, Pageable pageable);
+	Page<BookListProjection> findAllByGenreIdAndNicknameContainsIgnoreCase(Long genreId, String keyword, Pageable pageable);
+	Long countByGenreId(Long genreId);
 	
 	Optional<BookCoverUrlProjection> findCoverUrlById(UUID id);
 	

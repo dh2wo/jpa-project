@@ -13,5 +13,5 @@ public interface BookGenreRepository extends JpaRepository<BookGenre, UUID> {
 	
 	//	Using @Query
 	@Query("select genre.id from BookGenre genre where eng = :eng")
-	UUID findIdByEng(@Param("eng") String eng);
+	Long findIdByEng(@Param("eng") String eng);
 }

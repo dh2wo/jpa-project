@@ -33,7 +33,6 @@ public class DefaultBoardCommandService implements BoardCommandService {
     public BoardCreateResponseDto create(BoardCreateRequsetDto dto, HttpServletRequest request) {
 
         JwtPayloadParser payloadParser = jwtPayloadParserBuilder.buildWith(request);
-        // 닉네임
         String nickname = payloadParser.claims().get("nickname", String.class);
         String email = payloadParser.subject();
 
@@ -89,7 +88,7 @@ public class DefaultBoardCommandService implements BoardCommandService {
         }
 
         Board board  = optionalBoard.get();
-        if(board.memberId != memberId){
+        if(board.getMemberId() != memberId){
             throw new IllegalStateException();
         }
 

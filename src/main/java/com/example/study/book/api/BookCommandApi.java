@@ -1,7 +1,8 @@
 package com.example.study.book.api;
 
-import com.example.study.book.api.dto.BookCommandDto.BookAddRequestDto;
-import com.example.study.book.api.dto.BookCommandDto.BookAddResponseDto;
+import com.example.study.book.api.dto.BookCommandDto;
+import com.example.study.book.api.dto.BookCommandDto.BookCreateResponseDto;
+import com.example.study.book.api.dto.BookCommandDto.BookUpdateResponseDto;
 import com.example.study.book.service.BookCommandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +18,13 @@ public final class BookCommandApi {
 	
 	private final BookCommandService bookCommandService;
 	
-	@PostMapping("/add")
-	public BookAddResponseDto bookAddResponseDto(
+	@PostMapping("/create")
+	public BookCreateResponseDto bookAddResponseDto(
 			@RequestPart(value = "coverImage", required = false) MultipartFile file,
-			@ModelAttribute @Valid BookAddRequestDto body,
+			@ModelAttribute @Valid BookCommandDto.BookCreateRequestDto body,
 			HttpServletRequest request){
-		return new BookAddResponseDto(bookCommandService.add(body, file, request));
+		return new BookCreateResponseDto(bookCommandService.add(body, file, request));
 	}
+
+
 }

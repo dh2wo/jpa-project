@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public record BookListProjection(
 		UUID id,
-		UUID memberId,
+		String nickname,
 		String title,
 		Double avgScore,
 		String coverUrl

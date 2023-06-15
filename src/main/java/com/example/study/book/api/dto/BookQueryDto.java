@@ -8,29 +8,29 @@ import java.util.UUID;
 
 public record BookQueryDto() {
 	
-	public record GetBooksRequestDto(
+	public record ReadBooksRequestDto(
 			String keyword
 	){
-		public GetBooksRequestDto {
+		public ReadBooksRequestDto {
 			if (keyword != null && "".equals(keyword.trim())) keyword = null;
 		}
 	}
 	
 	@Builder
-	public record GetBooksResponseDto(
+	public record ReadBooksResponseDto(
 			List<BookListProjection> books,
 			Long lastPage
 	){}
-	public record GetMemberBooksReqDto(
+	public record ReadMemberBooksReqDto(
 			UUID MemberId
 	){
-		public GetMemberBooksReqDto {
+		public ReadMemberBooksReqDto {
 			if (MemberId != null && "".equals(MemberId)) MemberId = null;
 		}
 	}
 	
 	@Builder
-	public record GetMemberBooksResDto(
+	public record ReadMemberBooksResponseDto(
 			List<BookListProjection> books,
 			Long lastPage
 	){}

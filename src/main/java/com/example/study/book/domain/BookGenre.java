@@ -1,12 +1,9 @@
 package com.example.study.book.domain;
 
 import com.example.study.support.MySchemaConstants;
-import com.example.study.support.UuidBaseEntity;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -20,7 +17,9 @@ import javax.persistence.Table;
 		schema = MySchemaConstants.SCHEMA
 //		catalog = MySchemaConstants.SCHEMA
 )
-public class BookGenre extends UuidBaseEntity {
+public class BookGenre {
+	@Id
+	private Long id;
 	@Column
 	private String kor;
 	@Column

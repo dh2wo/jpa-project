@@ -1,6 +1,6 @@
 package com.example.study.book.service;
 
-import com.example.study.book.api.dto.BookCommandDto.BookAddRequestDto;
+import com.example.study.book.api.dto.BookCommandDto.BookCreateRequestDto;
 import com.example.study.book.domain.Book;
 import com.example.study.book.repository.BookRepository;
 import com.example.study.member.repository.MemberRepository;
@@ -26,7 +26,7 @@ public final class DefaultBookCommandService implements BookCommandService {
 	private final LocalUploadImageService localUploadImageService;
 	
 	@Override
-	public boolean add(BookAddRequestDto dto, MultipartFile file ,HttpServletRequest request) {
+	public boolean add(BookCreateRequestDto dto, MultipartFile file , HttpServletRequest request) {
 		
 		JwtPayloadParser payloadParser = jwtPayloadParserBuilder.buildWith(request);
 		
@@ -48,7 +48,7 @@ public final class DefaultBookCommandService implements BookCommandService {
 		
 		Book book = Book.builder()
 				.memberId(memberId)
-				.memberNickname(nickname)
+				.nickname(nickname)
 				.genreId(dto.genreId())
 				.title(dto.title())
 				.description(dto.description())

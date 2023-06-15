@@ -2,7 +2,7 @@
 
 --작품(BookGenre)장르 테이블
 CREATE TABLE IF NOT EXISTS joara_basic.book_genre (
-    id                  UUID                                PRIMARY KEY,
+    id                  BIGINT                                PRIMARY KEY,
     kor                 VARCHAR(255),
     eng                 VARCHAR(255),
 
@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS joara_basic.book_genre (
 CREATE TABLE IF NOT EXISTS joara_basic.book (
     id                  UUID                                PRIMARY KEY,
     member_id           UUID                                ,
-    member_nickname     VARCHAR(255)                        ,
-    genre_id            UUID                                ,
+    nickname            VARCHAR(255)                        ,
+    genre_id            BIGINT                              ,
     isbn                VARCHAR(255)                        ,
     cip                 VARCHAR(255)                        ,
     title               VARCHAR(255)                        ,

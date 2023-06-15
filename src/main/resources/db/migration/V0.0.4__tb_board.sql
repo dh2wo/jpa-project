@@ -5,11 +5,11 @@ CREATE SEQUENCE IF NOT EXISTS board_sequence START 1;
 CREATE TABLE IF NOT EXISTS joara_basic.board (
     id                  UUID                 PRIMARY KEY,
     member_id           UUID                 ,
-    nickname           VARCHAR(255)         ,
+    nickname            VARCHAR(255)         ,
     board_num           SERIAL               ,
     title               VARCHAR(255)         ,
     content             TEXT                 ,
-    created_at          DATE                 ,
+    created_at          DATE                 NOT NULL ,
     updated_at          DATE                 ,
     deleted_at          DATE
 );

@@ -25,7 +25,7 @@ import static com.example.study.support.Constants.DEFAULT_TIMEZONE_ID;
 )
 public class MemberFavorGenre extends UuidBaseEntity {
 	@Column
-	private UUID genreId;
+	private Long genreId;
 	@Column
 	private UUID memberId;
 	@Column

@@ -30,7 +30,7 @@ CREATE UNIQUE INDEX udx_member_email ON joara_basic.member(email);
 --회원선호장르(MemberFavorGenre)테이블
 CREATE TABLE IF NOT EXISTS joara_basic.member_favor_genre (
     id                  UUID                                PRIMARY KEY,
-    genre_id            UUID                                NOT NULL,
+    genre_id            BIGINT                              NOT NULL,
     member_id           UUID                                NOT NULL,
     favor_genre_name    VARCHAR(255)                        ,
     created_at          DATE                                NOT NULL

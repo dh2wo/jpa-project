@@ -1,4 +1,4 @@
-package com.example.study.board.type;
+package com.example.study.board.domain.type;
 
 public enum SearchType {
 	TITLE,

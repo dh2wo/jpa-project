@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS joara_basic.board (
 ALTER TABLE joara_basic.board ALTER COLUMN board_num SET DEFAULT nextval('board_sequence');
 
 -- 게시판 댓글(BoardComment)
-CREATE TABLE IF NOT EXISTS joara_basic.board_comment (
+CREATE TABLE IF NOT EXISTS joara_basic.board_commnet (
     id                  UUID                 PRIMARY KEY,
     board_id            UUID                 NOT NULL,
     nickname            VARCHAR(255)         NOT NULL,

@@ -5,7 +5,7 @@ import com.example.study.board.domain.Board;
 import com.example.study.board.exception.BoardFailureErrorCode;
 import com.example.study.board.repository.BoardRepository;
 import com.example.study.board.repository.projection.BoardListProjection;
-import com.example.study.board.type.SearchType;
+import com.example.study.board.domain.type.SearchType;
 import com.example.study.member.repository.MemberRepository;
 import com.example.study.util.jwt.JwtPayloadParser;
 import com.example.study.util.jwt.JwtPayloadParserBuilder;

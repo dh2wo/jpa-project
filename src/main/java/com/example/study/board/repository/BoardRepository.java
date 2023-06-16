@@ -2,7 +2,6 @@ package com.example.study.board.repository;
 
 import com.example.study.board.domain.Board;
 import com.example.study.board.repository.projection.BoardListProjection;
-import com.example.study.board.type.SearchType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

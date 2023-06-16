@@ -1,5 +1,6 @@
 package com.example.study.board.domain;
 
+import com.example.study.common.type.StatusType;
 import com.example.study.support.MySchemaConstants;
 import com.example.study.support.UuidBaseEntity;
 import lombok.*;
@@ -20,14 +21,17 @@ import static com.example.study.support.Constants.DEFAULT_TIMEZONE_ID;
         name = MySchemaConstants.TB_BOARD,
         schema = MySchemaConstants.SCHEMA)
 public class Board extends UuidBaseEntity {
-    public UUID memberId;
-    public String nickname;
-    @Column(insertable = false) // ,updatable = false
-    public Integer boardNum;
-    public String title;
-    public String content;
+    UUID memberId;
+    String nickname;
+    @Column(insertable = false)
+    Long boardNum;
+    String title;
+    String content;
     @Builder.Default
-    public OffsetDateTime createdAt = OffsetDateTime.now(DEFAULT_TIMEZONE_ID);
-    public OffsetDateTime updatedAt;
-    public OffsetDateTime deletedAt;
+    @Enumerated(EnumType.STRING)
+    StatusType status = StatusType.PENDING;
+    @Builder.Default
+    OffsetDateTime createdAt = OffsetDateTime.now(DEFAULT_TIMEZONE_ID);
+    OffsetDateTime updatedAt;
+    OffsetDateTime deletedAt;
 }
